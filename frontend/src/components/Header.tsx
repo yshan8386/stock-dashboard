@@ -1,4 +1,9 @@
-function Header({keyword, setKeyword} : {keyword : string, setKeyword: (keyword:string)=>void}) {
+import { useContext } from 'react'
+import { KeywordContext } from '../context/KeywordContext'
+
+function Header() {
+  const { keyword, setKeyword} = useContext(KeywordContext);
+
   return (
     <header className="bg-gray-800 px-8 py-4 flex items-center justify-between">
       <h1 className="text-xl font-bold text-green-400">📈 Stock Dashboard</h1>

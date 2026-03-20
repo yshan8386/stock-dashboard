@@ -1,9 +1,10 @@
-import Header from './components/Header'
-import StockCard from './components/StockCard'
-import WatchList from './components/WatchList'
+import Dashboard from './pages/Dashboard'
+import StockDetail from './pages/StockDetail'
 import type { Stock } from './types/stock'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { KeywordContext } from './context/KeywordContext'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const mockWatchList: string[] = [
   '삼성전자', 'SK하이닉스', 'NAVER', 'LG화학'
@@ -24,23 +25,12 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white">
-      <Header keyword={keyword} setKeyword={(k)=>setKeyword(k)}/>
-      <main className="p-8">
-        <h2 className="text-lg font-bold mb-4 text-gray-300">관심종목</h2>
-        <div className="grid grid-cols-4 gap-4">
-          {stocks.map(stock => (
-            <StockCard key={stock.code} stock={stock} />
-          ))}
-        </div>
-        <div className="mt-6">
-          <WatchList items={mockWatchList.filter(item => item.includes(keyword))} onSelect={(item)=> setSelectedStock(item)}/>
-        </div>
-        <div className="mt-6">
-          {selectedStock? <p>선택된 종목: {selectedStock}</p> : <p>종목을 선택해주세요</p>}
-        </div>
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard/>} />
+        <Route path="/stock/:code" element={<StockDetail/>} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
