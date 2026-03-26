@@ -1,9 +1,7 @@
 import Dashboard from './pages/Dashboard'
 import StockDetail from './pages/StockDetail'
 import type { Stock } from './types/stock'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import { KeywordContext } from './context/KeywordContext'
+import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 const mockWatchList: string[] = [

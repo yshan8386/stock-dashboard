@@ -1,21 +1,22 @@
 import type { Stock } from '../types/stock'
+import { useNavigate } from 'react-router-dom'
 
-interface Props {
-  stock: Stock
-}
-
-function StockCard({ stock }: Props) {
+function StockCard({ stock }: {stock: Stock}) {
+  const navigate = useNavigate()
   const isUp = stock.change >= 0
 
   return (
-    <div className="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition">
-      <div className="text-sm text-gray-400">{stock.code}</div>
-      <div className="font-bold mt-1">{stock.name}</div>
-      <div className="text-lg font-bold mt-2">
-        {stock.price.toLocaleString()}원
-      </div>
-      <div className={`text-sm mt-1 ${isUp ? 'text-red-400' : 'text-blue-400'}`}>
-        {isUp ? '▲' : '▼'} {Math.abs(stock.changeRate)}%
+    <div
+      className="bg-gray-800 p-4 rounded-xl cursor-pointer hover:bg-gray-700 transition border border-gray-700 hover:border-green-400"
+      onClick={() => navigate(`/stock/${stock.symbol}`)}
+    >
+      <div className="flex justify-between items-start">
+        <div>
+          <div className="text-xs text-gray-400">{stock.symbol}</div>
+          <div className="font-bold mt-1">{stock.name}</div>
+          <div className="text-xs text-gray-500 mt-1">{stock.sector}</div>
+        </div>
+        <span className="text-xs bg-gray-700 px-2 py-1 rounded text-gray-300">{stock.market}</span>
       </div>
     </div>
   )
